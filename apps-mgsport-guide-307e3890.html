@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>满冠体育 · 资料整理与信息索引</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #f9f6ef;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans SC", "Helvetica Neue", sans-serif;
+            line-height: 1.7;
+            color: #2c2b28;
+            padding: 2rem 1.2rem;
+        }
+        .page {
+            max-width: 840px;
+            margin: 0 auto;
+        }
+
+        /* 文章 hero 区 — 简洁标题卡片 */
+        .hero {
+            margin-bottom: 2.8rem;
+            background: #fffcf5;
+            border-radius: 20px;
+            padding: 2.4rem 2rem 2rem 2rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.02), 0 4px 18px rgba(140, 120, 90, 0.06);
+            border: 1px solid #ece4d7;
+        }
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: #3b3a34;
+            margin-bottom: 0.6rem;
+        }
+        .hero .sub {
+            font-size: 1rem;
+            color: #7d7567;
+            border-left: 3px solid #c9b99f;
+            padding-left: 1rem;
+            margin-top: 0.2rem;
+        }
+        .hero .sub span {
+            background: #ede6d9;
+            padding: 0.1rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            margin-left: 0.3rem;
+            color: #5a5245;
+        }
+
+        /* 摘要 & 正文排版 */
+        .summary {
+            background: #fffffffa;
+            border-radius: 16px;
+            padding: 1.6rem 2rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid #a48e72;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+        }
+        .summary p {
+            margin-bottom: 0.8rem;
+            text-indent: 2em;
+        }
+        .summary p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 亮点卡片 — 三列自适应 */
+        .highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 2.4rem 0 2rem 0;
+        }
+        .highlight-item {
+            flex: 1 1 200px;
+            background: #fffcf5;
+            border-radius: 18px;
+            padding: 1.4rem 1.2rem 1.2rem 1.2rem;
+            border: 1px solid #e5dbcb;
+            box-shadow: 0 4px 10px rgba(100, 80, 60, 0.03);
+            transition: box-shadow 0.2s;
+        }
+        .highlight-item:hover {
+            box-shadow: 0 6px 16px rgba(140, 120, 90, 0.08);
+        }
+        .highlight-item h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #4f473c;
+            margin-bottom: 0.6rem;
+            letter-spacing: 0.01em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .highlight-item h3::before {
+            content: "•";
+            font-size: 1.6rem;
+            color: #b7a081;
+            line-height: 1;
+        }
+        .highlight-item p {
+            font-size: 0.92rem;
+            color: #4d4840;
+            line-height: 1.6;
+        }
+
+        /* 使用建议 — 引用块 */
+        .advice-box {
+            background: #f3ede3;
+            border-radius: 16px;
+            padding: 1.6rem 2rem;
+            margin: 2rem 0 2.2rem 0;
+            border-left: 4px solid #9d896f;
+        }
+        .advice-box h2 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #423d32;
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.02em;
+        }
+        .advice-box ul {
+            list-style: none;
+            padding-left: 0.2rem;
+        }
+        .advice-box li {
+            margin-bottom: 0.7rem;
+            padding-left: 1.2rem;
+            position: relative;
+            color: #3d3830;
+        }
+        .advice-box li::before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: #9d896f;
+            font-weight: 300;
+        }
+
+        /* FAQ 摘要 紧凑引用 */
+        .faq-mini {
+            background: #fffcf5;
+            border-radius: 16px;
+            padding: 1.4rem 2rem 1.6rem 2rem;
+            margin: 0.8rem 0 2.2rem 0;
+            border: 1px solid #e2d6c4;
+        }
+        .faq-mini h2 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #4b4338;
+            margin-bottom: 0.8rem;
+        }
+        .faq-mini .qa {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.6rem;
+            font-size: 0.95rem;
+        }
+        .faq-mini .qa .q {
+            font-weight: 500;
+            color: #6b5f4e;
+            min-width: 3.2em;
+        }
+        .faq-mini .qa .a {
+            color: #3f3a31;
+        }
+
+        /* 可信说明 + 链接自然嵌入 */
+        .trust-note {
+            background: #fffffffa;
+            border-radius: 16px;
+            padding: 1.6rem 2rem 1.2rem 2rem;
+            border: 1px dashed #c6b9a6;
+            margin: 2rem 0 1.8rem 0;
+        }
+        .trust-note p {
+            margin-bottom: 0.8rem;
+            text-indent: 2em;
+        }
+        .trust-note a {
+            color: #6d5c44;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-color: #c1af96;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .trust-note a:hover {
+            color: #3f3326;
+            text-decoration-color: #6d5c44;
+        }
+
+        /* 页脚 */
+        .footer {
+            margin-top: 3rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid #e2d6c4;
+            font-size: 0.85rem;
+            color: #8b8272;
+            text-align: center;
+            letter-spacing: 0.02em;
+        }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            body {
+                padding: 1.2rem 0.8rem;
+            }
+            .hero {
+                padding: 1.6rem 1.2rem;
+            }
+            .hero h1 {
+                font-size: 1.7rem;
+            }
+            .summary, .advice-box, .faq-mini, .trust-note {
+                padding-left: 1.2rem;
+                padding-right: 1.2rem;
+            }
+            .highlights {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <!-- hero -->
+    <div class="hero">
+        <h1>满冠体育 · 信息索引</h1>
+        <div class="sub">
+            从资料整理到使用参考
+            <span>聚合页</span>
+        </div>
+    </div>
+
+    <!-- 摘要：切入角度 资料整理 -->
+    <div class="summary">
+        <p>日常整理运动资讯时，常常遇到碎片化信息堆叠、缺乏统一索引的问题。从资料归档的角度梳理，「满冠体育」可以被看作一个相对集中的内容聚合点——它把赛事、训练、社区动态等不同维度的信息整合在同一处，方便回溯和对比。就像把散落的卡片收进一个文件夹，以后查找时不必再逐个翻找零散来源。</p>
+        <p>这份介绍页也承袭同样的思路：只做概要说明与使用线索，不代替实际浏览。保持轻量，便于快速建立认知。</p>
+    </div>
+
+    <!-- 特点/亮点 三卡片 -->
+    <div class="highlights">
+        <div class="highlight-item">
+            <h3>信息层级</h3>
+            <p>栏目分类较清晰，从项目概览到具体数据都有独立区块，适合按需定位。</p>
+        </div>
+        <div class="highlight-item">
+            <h3>更新节奏</h3>
+            <p>内容保持定期刷新，不是静态归档。对于需要跟进最新动态的人来说，有一定价值。</p>
+        </div>
+        <div class="highlight-item">
+            <h3>多端适配</h3>
+            <p>页面结构在手机和电脑上都能正常阅读，这一点在移动场景下很实用。</p>
+        </div>
+    </div>
+
+    <!-- 使用建议 (引用块风格) -->
+    <div class="advice-box">
+        <h2>使用建议 · 索引视角</h2>
+        <ul>
+            <li>如果只是简单了解项目概况，浏览首页摘要即可，不必深入每一层。</li>
+            <li>若在做资料对比，建议同时打开几个相关栏目，把信息并列查看。</li>
+            <li>移动端浏览时，可以横屏查看表格类内容，排版会更舒展。</li>
+            <li>关注更新日期，避免把过时信息当作当前动态。</li>
+        </ul>
+    </div>
+
+    <!-- FAQ 摘要（紧凑） -->
+    <div class="faq-mini">
+        <h2>常见疑问 · 简答</h2>
+        <div class="qa">
+            <span class="q">Q：</span>
+            <span class="a">这个站点适合哪类人？—— 关注运动资料、希望集中查阅索引的用户。</span>
+        </div>
+        <div class="qa">
+            <span class="q">Q：</span>
+            <span class="a">内容权威吗？—— 作为信息聚合，建议结合其他来源交叉验证。</span>
+        </div>
+        <div class="qa">
+            <span class="q">Q：</span>
+            <span class="a">需要注册吗？—— 大部分页面可直接浏览，具体以实际访问为准。</span>
+        </div>
+    </div>
+
+    <!-- 可信但克制的访问说明；a标签自然嵌入句子，可见文本严格为「满冠体育」 -->
+    <div class="trust-note">
+        <p>在做资料索引时，我通常会把几个主要站点固定下来，其中就包括 <a href="https://apps-mgsport.com">满冠体育</a>。它不算那种铺天盖地宣传的平台，但胜在内容组织利落，没有过多干扰信息。如果你也在整理运动相关素材，不妨把它加入你的书签夹里，有空时翻翻栏目结构，也许能找到你需要的线索。</p>
+        <p>最后提醒一句：任何网络资源都有其更新周期和使用边界，保持适度参考、多方比对，会让你的信息库更可靠。</p>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="footer">
+        <span>信息索引页 · 仅作介绍参考</span>
+    </div>
+
+</div>
+</body>
+</html>
